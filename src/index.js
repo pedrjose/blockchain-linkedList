@@ -25,8 +25,6 @@ app.post("/blockchain/add-block", async (req, res) => {
       toWallet: toWallet,
       value: parseInt(value),
       createdAtDate: null,
-      hash: null,
-      prevHash: null,
     };
 
     block.createdAtDate = formatDate();

@@ -6,6 +6,8 @@ export function Blockchain(block) {
 
 export function BlockchainNode(transaction) {
   this.transaction = transaction;
+  this.prevHash = null;
+  this.hash = null;
   this.next = null;
 }
 
@@ -18,31 +20,29 @@ Blockchain.prototype.addBlock = function (transaction) {
     toWallet: transaction.toWallet,
     value: transaction.value,
     createdAtDate: transaction.createdAtDate,
-    prevHash: null,
-    hash: null,
   });
 
   if (!this.block) {
-    newBlock.transaction.prevHash = 0;
+    newBlock.prevHash = 0;
 
-    newBlock.transaction.hash = generateHash(
+    newBlock.hash = generateHash(
       newBlock.transaction.fromWallet,
       newBlock.transaction.toWallet,
       newBlock.transaction.value,
       newBlock.transaction.createdAtDate,
-      newBlock.transaction.prevHash
+      newBlock.prevHash
     );
 
     this.block = newBlock;
   } else if (!this.block.next) {
-    newBlock.transaction.prevHash = this.block.transaction.hash;
+    newBlock.prevHash = this.block.hash;
 
-    newBlock.transaction.hash = generateHash(
+    newBlock.hash = generateHash(
       newBlock.transaction.fromWallet,
       newBlock.transaction.toWallet,
       newBlock.transaction.value,
       newBlock.transaction.createdAtDate,
-      newBlock.transaction.prevHash
+      newBlock.prevHash
     );
 
     this.block.next = newBlock;
@@ -56,8 +56,8 @@ Blockchain.prototype.addBlock = function (transaction) {
         currentBlock.transaction.toWallet,
         currentBlock.transaction.value,
         currentBlock.transaction.createdAtDate,
-        currentBlock.transaction.prevHash,
-        currentBlock.transaction.hash
+        currentBlock.prevHash,
+        currentBlock.hash
       );
 
       if (!isValid) {
@@ -71,14 +71,14 @@ Blockchain.prototype.addBlock = function (transaction) {
       blockIndex++;
     }
 
-    newBlock.transaction.prevHash = previousBlock.transaction.hash;
+    newBlock.prevHash = previousBlock.hash;
 
-    newBlock.transaction.hash = generateHash(
+    newBlock.hash = generateHash(
       newBlock.transaction.fromWallet,
       newBlock.transaction.toWallet,
       newBlock.transaction.value,
       newBlock.transaction.createdAtDate,
-      newBlock.transaction.prevHash
+      newBlock.prevHash
     );
 
     previousBlock.next = newBlock;

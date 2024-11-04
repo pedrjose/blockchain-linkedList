@@ -21,8 +21,16 @@ Para começar a utilizar o protótipo de rede Blockchain do projeto, você preci
 
 A rota disponibilizada para simulação de transações na Blockchain é a `/blockchain/add-block`. O padrão para o corpo da requisição para essa rota é a seguinte:
 
+<<<<<<< HEAD
 img-example
 
 Feito isso, uma Linked List será criada e novas transações serão adicionadas na Blockchain. [Veja aqui!](https://www.youtube.com/watch?v=qF4WzXPmHWA)
 
 Antes que um novo bloco seja incorporado, a hash anterior é verificada com seus parâmetros originais, que incluem a hash anterior à dele, tornando impossível a fraude, visto que seria necessário fraudar todas as transações da rede.
+=======
+![req example](./req-example.png)
+
+Feito isso, uma Linked List será criada e novas transações serão adicionadas na Blockchain. [Veja aqui!](https://www.youtube.com/watch?v=qF4WzXPmHWA)
+
+Antes que um novo bloco seja incorporado, a hash anterior é verificada com seus parâmetros originais, que incluem a hash anterior à dele, tornando impossível a fraude, visto que seria necessário fraudar todas as transações da rede.
+>>>>>>> d7ce6de6a1d9235b290a3bc759e22ec63ccf3ac5

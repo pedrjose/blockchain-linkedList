@@ -1,41 +1,23 @@
 import express from "express";
 
+import connectCacheDatabase from "./cache/cache.blockchain.js";
+
 const port = process.env.PORT || 3000;
 const app = express();
 
+import { Blockchain } from "./models/blockchain.model.js";
+
+import blockRoute from "./routes/block.routes.js";
+import mineRoute from "./routes/mine.route.js";
+
 app.use(express.json());
+app.use("/block", blockRoute);
+app.use("/mine", mineRoute);
 
-import { formatDate } from "./helpers.js";
-import { Blockchain } from "./Blockchain.js";
-
-let blockchain = new Blockchain(null);
-
-app.post("/blockchain/add-block", async (req, res) => {
-  try {
-    const { value, fromWallet, toWallet } = req.body;
-
-    if (!value || !fromWallet || !toWallet) {
-      throw new Error(
-        "UNAUTHORIZED TRANSACTION: empty essential fields of requisition!"
-      );
-    }
-
-    let block = {
-      fromWallet: fromWallet,
-      toWallet: toWallet,
-      value: parseInt(value),
-      createdAtDate: null,
-    };
-
-    block.createdAtDate = formatDate();
-    blockchain.addBlock(block);
-
-    res.send(blockchain);
-  } catch (err) {
-    res.status(400).send(err.message);
-  }
-});
+connectCacheDatabase();
 
 app.listen(port, () =>
   console.log(`\n\nBLOCKCHAIN NETWORK IS RUNNING ON ${port} PORT!`)
 );
+
+export const blockchain = new Blockchain();

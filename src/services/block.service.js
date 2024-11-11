@@ -1,4 +1,4 @@
-import { formatDate } from "../helpers/block.helpers.js";
+import { formatDate, validateWalletAddress } from "../helpers/block.helpers.js";
 import { createBlockRepository } from "../repository/block.repository.js";
 import { BlockchainNode } from "../models/block.model.js";
 
@@ -10,10 +10,16 @@ export async function createBlockService(value, fromWallet, toWallet) {
     });
   }
 
+  if (!validateWalletAddress(fromWallet) || !validateWalletAddress(toWallet))
+    throw new Error({
+      message:
+        "INVALID WALLET ADDRESS: wallets must maintain the following pattern: @+address+domain. Example: @PEDRJOSE.WALLET!",
+    });
+
   const transaction = {
     fromWallet,
     toWallet,
-    value: parseInt(value),
+    value: parseFloat(value),
     createdAt: null,
   };
 

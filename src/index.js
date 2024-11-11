@@ -9,10 +9,12 @@ import { Blockchain } from "./models/blockchain.model.js";
 
 import blockRoute from "./routes/block.routes.js";
 import mineRoute from "./routes/mine.route.js";
+import blockchainRoute from "./routes/blockchain.route.js";
 
 app.use(express.json());
 app.use("/block", blockRoute);
 app.use("/mine", mineRoute);
+app.use("/blockchain", blockchainRoute);
 
 connectCacheDatabase();
 

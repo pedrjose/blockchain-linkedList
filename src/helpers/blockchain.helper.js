@@ -15,8 +15,10 @@ export function generateHash(
 export function mineBlock(block) {
   block.nonce = 0;
 
+  const miningFee = block.value * 0.25;
+  block.value -= miningFee;
+
   while (true) {
-    console.log(block.hash);
     block.hash = generateHash(
       block.fromWallet,
       block.toWallet,
@@ -26,7 +28,7 @@ export function mineBlock(block) {
       block.hash
     );
 
-    if (block.hash.startsWith("0".repeat(2))) {
+    if (block.hash.startsWith("0".repeat(Math.floor(Math.random() * 10)))) {
       return block.hash;
     }
 

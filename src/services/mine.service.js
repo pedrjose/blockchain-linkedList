@@ -5,11 +5,10 @@ import {
 } from "../repository/mine.repository.js";
 
 export async function validateBlockService() {
-  console.log("services");
-
   const getBlocks = await validateBlockRepository();
 
-  if (!getBlocks) return { message: "There are no blocks to be validated!" };
+  if (getBlocks.length === 0)
+    return { message: "There are no blocks to be validated!" };
 
   const block = getBlocks[Math.floor(Math.random() * getBlocks.length)];
 

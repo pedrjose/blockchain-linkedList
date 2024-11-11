@@ -10,3 +10,8 @@ export function formatDate() {
 
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 }
+
+export function validateWalletAddress(string) {
+  const pattern = /^@\w+\.wallet$/;
+  return pattern.test(string);
+}
